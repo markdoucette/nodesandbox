@@ -1,3 +1,5 @@
+'use strict'
+
 var Emitter = require('events');
 var util = require('util');
 var eventConfig = require('./config').events;
@@ -16,18 +18,18 @@ emtr.on(eventConfig.GREET, function () {
 console.log('Hello');
 emtr.emit('greet');
 
-
-var person = {
-    firstName: '',
-    lastName: '',
-    greet: function () {
+class Person {
+    constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    
+    greet() {
         return this.firstName + " " + this.lastName;
     }
 }
 
-var mark = Object.create(person);
-mark.firstName = "Mark";
-mark.lastName = "Doucette";
+var mark = new Person("Mark", "Doucette");
 
 console.log(mark.greet());
 
@@ -54,8 +56,11 @@ Greetr.prototype.greet = function (data) {
 }
 
 var grtr1 = new Greetr();
-grtr1.on(eventConfig.GREET, function(data){
+grtr1.on(eventConfig.GREET, function (data) {
     console.log('Someone greeted via inheritance! It was..' + data);
 })
 grtr1.greet("Mark");
 
+var sayHelloES6 = `Hello there ${mark.firstName}`;
+
+console.log(sayHelloES6);
